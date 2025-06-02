@@ -92,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24),
                 TextFormField(
+                  key: const Key('email_field'), // Added key
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'University Email', // Simplified label
@@ -101,10 +102,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(color: theme.colorScheme.onSurface),
                   keyboardType: TextInputType.emailAddress,
                   validator: _validateEmail,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  autovalidateMode: AutovalidateMode.onUserInteraction, // Added for real-time validation feedback
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
+                  key: const Key('send_otp_button'), // Added key
                   onPressed: _submit,
                   child: const Text('Continue with Email'),
                 ),

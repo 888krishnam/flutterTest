@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/login_screen.dart'; // Import the login screen
-
+import 'package:frontend/screens/main_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -20,10 +19,13 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           primary: Colors.purple,
           secondary: Colors.red,
+          surface: Colors.purple[900]!, // Dull purple for surfaces that were grey
+          onSurface: Colors.white, // Text/icons on dull purple
         ),
         scaffoldBackgroundColor: Colors.black,
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.grey[900],
+          backgroundColor: Colors.black,
+          elevation: 0,
           titleTextStyle: const TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -39,16 +41,16 @@ class MyApp extends StatelessWidget {
           bodyLarge: TextStyle(color: Colors.white),
           bodyMedium: TextStyle(color: Colors.white70),
           headlineMedium: TextStyle(color: Colors.white),
-          headlineSmall: TextStyle(color: Colors.white), // Added for profile creation screen
-          titleMedium: TextStyle(color: Colors.white70), // Added for profile creation screen
-          titleLarge: TextStyle(color: Colors.white), // Added for user profile screen
-          bodySmall: TextStyle(color: Colors.white70), // Added for login screen fine print
+          headlineSmall: TextStyle(color: Colors.white),
+          titleMedium: TextStyle(color: Colors.white70),
+          titleLarge: TextStyle(color: Colors.white),
+          bodySmall: TextStyle(color: Colors.white70),
         ),
-        inputDecorationTheme: InputDecorationTheme( // Added for consistent text field styling
+        inputDecorationTheme: InputDecorationTheme(
           labelStyle: TextStyle(color: Colors.purple[200]),
           hintStyle: TextStyle(color: Colors.white54),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white38),
+            borderSide: BorderSide(color: Colors.purple[700]!), // Dull purple border
             borderRadius: BorderRadius.circular(8.0),
           ),
           focusedBorder: OutlineInputBorder(
@@ -59,10 +61,10 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
           ),
           filled: true,
-          fillColor: Colors.grey[850],
+          fillColor: Colors.purple[900]!.withOpacity(0.3), // Dull purple fill, slightly transparent
           prefixIconColor: Colors.purple[200],
         ),
-        elevatedButtonTheme: ElevatedButtonThemeData( // Added for consistent button styling
+        elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
@@ -72,7 +74,7 @@ class MyApp extends StatelessWidget {
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: Colors.red, // Using secondary color for text buttons
+            foregroundColor: Colors.red,
           )
         ),
         dropdownMenuTheme: DropdownMenuThemeData(
@@ -80,7 +82,7 @@ class MyApp extends StatelessWidget {
              labelStyle: TextStyle(color: Colors.purple[200]),
              hintStyle: TextStyle(color: Colors.white54),
              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white38),
+                borderSide: BorderSide(color: Colors.purple[700]!), // Dull purple border
                 borderRadius: BorderRadius.circular(8.0),
             ),
             focusedBorder: OutlineInputBorder(
@@ -91,37 +93,36 @@ class MyApp extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
             ),
             filled: true,
-            fillColor: Colors.grey[850],
+            fillColor: Colors.purple[900]!.withOpacity(0.3), // Dull purple fill
             prefixIconColor: Colors.purple[200],
           )
         ),
-        useMaterial3: true,
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.black,
+          selectedItemColor: Colors.purple,
+          unselectedItemColor: Colors.purple[700]!, // Changed to a duller purple
+          showUnselectedLabels: false,
+          showSelectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          elevation: 0,
+        ),
+        cardTheme: CardThemeData( // Corrected to CardThemeData
+          color: Colors.purple[900]!.withOpacity(0.5), // Dull purple for cards
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+            side: BorderSide(color: Colors.purple[700]!, width: 0.5), // Optional: subtle border
+          ),
+        ),
+        dividerTheme: DividerThemeData( // Added DividerTheme
+          color: Colors.purple[700]!,
+          thickness: 0.8,
+        ),
       ),
-      home: const LoginScreen(), // Set LoginScreen as the home
-      // We will remove MyHomePage or repurpose it later.
-      // home: const MyHomePage(title: 'Klyro Home Page'), 
+      home: const MainScreen(),
+      // We will need to handle the navigation flow: LoginScreen -> MainScreen
+      // For now, to see the BottomNavigationBar, we set MainScreen as home.
+      // Later, LoginScreen will navigate to MainScreen upon successful login.
     );
   }
 }
-
-// ... MyHomePage and _MyHomePageState can be removed or commented out for now ...
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({super.key, required this.title});
-//   final String title;
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
-// }
-// class _MyHomePageState extends State<MyHomePage> {
-//   int _counter = 0;
-//   void _incrementCounter() {
-//     setState(() {
-//       _counter++;
-//     });
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-//         title: Text(widget.title),
-//       ),

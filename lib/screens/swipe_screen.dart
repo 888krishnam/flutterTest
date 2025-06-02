@@ -75,26 +75,6 @@ class _SwipeScreenState extends State<SwipeScreen> {
         title: Text('Klyro', style: TextStyle(fontWeight: FontWeight.bold, color: theme.colorScheme.primary)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.favorite_border), // Icon for Liked Profiles
-            tooltip: 'Sent Likes',
-            onPressed: () {
-              // TODO: Navigate to Sent Likes screen
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Navigate to Sent Likes (to be implemented)')),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.chat_bubble_outline),
-            tooltip: 'Messages',
-            onPressed: () {
-              // TODO: Navigate to Matches/Chat list screen
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Navigate to Messages (to be implemented)')),
-              );
-            },
-          ),
-          IconButton(
             icon: const Icon(Icons.settings_outlined),
             tooltip: 'Settings',
             onPressed: () {

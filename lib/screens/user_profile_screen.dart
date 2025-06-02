@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './edit_profile_screen.dart'; // Import EditProfileScreen
 
 // This screen will be used for viewing and editing the user's own profile later.
 // For now, it's a placeholder.
@@ -24,10 +25,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
-              // TODO: Navigate to an edit mode or a dedicated edit screen
-              // For now, just a placeholder action
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Edit profile action (to be implemented)')),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const EditProfileScreen()),
               );
             },
           ),
@@ -96,27 +96,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             _buildProfileDetailItem(context, Icons.favorite_border, 'Interested In', 'Women'), // Placeholder
             _buildProfileDetailItem(context, Icons.tune, 'Preferred Age Range', '18-25'), // Placeholder
             const SizedBox(height: 30),
-             Center(
-              child: ElevatedButton.icon(
-                icon: Icon(Icons.logout),
-                label: Text('Logout'),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.colorScheme.error,
-                    foregroundColor: theme.colorScheme.onError,
-                ),
-                onPressed: () {
-                    // TODO: Implement logout functionality
-                    // For now, navigate back to login (assuming it's the root after logout)
-                    // Navigator.of(context).pushAndRemoveUntil(
-                    //   MaterialPageRoute(builder: (context) => LoginScreen()), // Replace with your Login Screen
-                    //   (Route<dynamic> route) => false,
-                    // );
-                     ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Logout action (to be implemented)')),
-                    );
-                },
-              ),
-            )
           ],
         ),
       ),

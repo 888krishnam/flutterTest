@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/login_screen.dart'; // For logout
-import 'package:frontend/screens/edit_profile_screen.dart'; // Import EditProfileScreen
 import 'package:frontend/screens/placeholder_content_screen.dart'; // Import PlaceholderContentScreen
 
 class SettingsScreen extends StatelessWidget {
@@ -97,18 +96,6 @@ class SettingsScreen extends StatelessWidget {
       backgroundColor: theme.scaffoldBackgroundColor,
       body: ListView(
         children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.edit, color: theme.colorScheme.primary),
-            title: Text('Edit Profile & Preferences', style: TextStyle(color: theme.colorScheme.onSurface)),
-            trailing: Icon(Icons.chevron_right, color: theme.colorScheme.onSurface.withOpacity(0.5)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const EditProfileScreen()),
-              );
-            },
-          ),
-          const Divider(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Text('Account Management', style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.primary)),
