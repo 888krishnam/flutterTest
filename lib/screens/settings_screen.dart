@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/screens/login_screen.dart'; // For logout
-import 'package:test_flutter/screens/edit_profile_screen.dart'; // Import EditProfileScreen
-import 'package:test_flutter/screens/placeholder_content_screen.dart'; // Import PlaceholderContentScreen
+import 'package:frontend/screens/login_screen.dart'; // For logout
+import 'package:frontend/screens/edit_profile_screen.dart'; // Import EditProfileScreen
+import 'package:frontend/screens/placeholder_content_screen.dart'; // Import PlaceholderContentScreen
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

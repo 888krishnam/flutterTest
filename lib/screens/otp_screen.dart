@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/screens/profile_creation_screen.dart'; // Import ProfileCreationScreen
+import 'package:frontend/screens/profile_creation_screen.dart'; // Import ProfileCreationScreen
 
 class OTPScreen extends StatefulWidget {
   final String email;

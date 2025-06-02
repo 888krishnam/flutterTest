@@ -82,8 +82,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   primary: Theme.of(context).colorScheme.primary,
                   onPrimary: Colors.white,
                   onSurface: Theme.of(context).colorScheme.onSurface,
-                ),
-            dialogBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                ), dialogTheme: DialogThemeData(backgroundColor: Theme.of(context).scaffoldBackgroundColor),
           ),
           child: child!,
         );

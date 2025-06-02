@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/screens/otp_screen.dart'; // Import OTPScreen
+import 'package:frontend/screens/otp_screen.dart'; // Import OTPScreen
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

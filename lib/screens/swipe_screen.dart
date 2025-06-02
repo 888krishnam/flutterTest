@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/widgets/profile_card_widget.dart'; // Import the profile card
+import 'package:frontend/widgets/profile_card_widget.dart'; // Import the profile card
 import 'package:flutter_card_swiper/flutter_card_swiper.dart'; // Added for card swiping
-import 'package:test_flutter/screens/settings_screen.dart'; // Import SettingsScreen
+import 'package:frontend/screens/settings_screen.dart'; // Import SettingsScreen
 
 // Mock data for profiles - replace with actual data fetching later
 final List<UserProfile> mockProfiles = [

@@ -3,8 +3,7 @@ import 'package:image_picker/image_picker.dart'; // For image picking
 import 'dart:io'; // For File type
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:intl/intl.dart'; // Import intl package
-// import 'package:test_flutter/screens/user_profile_screen.dart'; // Placeholder for main app screen
-import 'package:test_flutter/screens/swipe_screen.dart'; // Import SwipeScreen
+import 'package:frontend/screens/swipe_screen.dart'; // Import SwipeScreen
 
 class ProfileCreationScreen extends StatefulWidget {
   const ProfileCreationScreen({super.key});
@@ -72,8 +71,7 @@ class _ProfileCreationScreenState extends State<ProfileCreationScreen> {
                   primary: Theme.of(context).colorScheme.primary, // header background color
                   onPrimary: Colors.white, // header text color
                   onSurface: Theme.of(context).colorScheme.onSurface, // body text color
-                ),
-            dialogBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                ), dialogTheme: DialogThemeData(backgroundColor: Theme.of(context).scaffoldBackgroundColor),
           ),
           child: child!,
         );

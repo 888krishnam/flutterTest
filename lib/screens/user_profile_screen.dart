@@ -70,7 +70,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             ),
             const SizedBox(height: 8),
             // Placeholder for photo gallery
-            Container(
+            SizedBox(
               height: 100,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -78,7 +78,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 itemBuilder: (context, index) {
                   return Card(
                     color: Colors.grey[800],
-                    child: Container(
+                    child: SizedBox(
                       width: 100,
                       height: 100,
                       child: Icon(Icons.image, color: Colors.white54, size: 40),
