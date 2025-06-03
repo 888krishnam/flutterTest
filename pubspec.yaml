@@ -33,6 +33,7 @@ dependencies:
   image_picker: ^1.0.7 # Added image_picker
   flutter_card_swiper: ^6.0.0 # Added for card swiping
   intl: ^0.19.0 # Added for date formatting
+  firebase_core: ^3.13.1 # Added for Firebase core functionality
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

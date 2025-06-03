@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "569428615506",
+    "project_id": "klyroo",
+    "storage_bucket": "klyroo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569428615506:android:218d3727fb6221ba485a8b",
+        "android_client_info": {
+          "package_name": "com.example.test_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu-HBIzCHHcez6u90VXqluhWfaOCo1EMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
