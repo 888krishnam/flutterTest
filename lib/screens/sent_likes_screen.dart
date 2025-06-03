@@ -63,15 +63,6 @@ class _SentLikesScreenState extends State<SentLikesScreen> {
     ),
   ];
 
-  // TODO: Implement logic to remove a like (undo/unswipe)
-  void _removeLike(String userId) {
-    setState(() {
-      _sentLikes.removeWhere((profile) => profile.userId == userId);
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Like removed (placeholder action)')),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

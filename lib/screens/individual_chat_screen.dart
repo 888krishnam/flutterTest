@@ -121,7 +121,7 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
         margin: const EdgeInsets.symmetric(vertical: 4.0),
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
         decoration: BoxDecoration(
-          color: isSentByMe ? theme.colorScheme.primary : theme.colorScheme.surfaceVariant, // Differentiate sender/receiver
+          color: isSentByMe ? theme.colorScheme.primary : theme.colorScheme.surfaceContainerHighest, // Differentiate sender/receiver
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(16.0),
             topRight: const Radius.circular(16.0),
