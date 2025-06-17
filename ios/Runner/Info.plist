@@ -51,5 +51,10 @@
 	<string>Klyro needs access to your camera to allow you to take photos for your profile.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Klyro needs access to your microphone if you choose to record a video for your profile.</string>
+	<!-- Associated Domains for email-link deep sign-in -->
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:klyro-casyca.project.sojolink.com</string>
+	</array>
 </dict>
 </plist>

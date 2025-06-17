@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/otp_screen.dart'; // Import OTPScreen
+import 'package:frontend/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,16 +11,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  // TODO: Populate this list with all specific university domains Klyro will support.
-  final List<String> _acceptedUniversityDomains = [
-    'srmist.edu.in',
-    'vit.ac.in',
-    'bitspilani.ac.in', // Example with hyphen
-    'iitd.ac.in',
-    'iitb.ac.in',
-    'tifr.res.in',
-    'someotheruni.edu.in' // Add more domains as needed
-  ];
+  final AuthService _authService = AuthService();
+  bool _isLoading = false;
+  bool _linkSent = false;
+  String? _errorMessage;
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -28,30 +22,41 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     // Basic email format validation
-    if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").hasMatch(value)) {
+    if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").hasMatch(value)) {
       return 'Please enter a valid email address format';
     }
 
-    // Extract domain from email
-    final String emailDomain = value.split('@').last.toLowerCase();
-
-    // Check against the list of accepted university domains
-    if (!_acceptedUniversityDomains.contains(emailDomain)) {
-      return 'Sorry, Klyro is not yet available for your institution.'; // More user-friendly message
+    // Only allow .edu.in or .ac.in domains
+    final domain = value.split('@').last.toLowerCase();
+    if (!domain.endsWith('.edu.in') && !domain.endsWith('.ac.in')) {
+      return 'Email must end with .edu.in or .ac.in';
     }
 
     return null;
   }
 
-  void _submit() {
-    if (_formKey.currentState!.validate()) {
-      print('Email submitted: \${_emailController.text}');
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OTPScreen(email: _emailController.text),
-        ),
+  Future<void> _submit() async {
+    if (!_formKey.currentState!.validate()) return;
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+    try {
+      await _authService.sendSignInLink(_emailController.text.trim());
+      setState(() {
+        _linkSent = true;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Check your email for the sign-in link'))
       );
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Error sending link: ${e.toString()}';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -91,9 +96,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: theme.textTheme.headlineMedium?.copyWith(color: Colors.white),
                 ),
                 const SizedBox(height: 24),
+                if (_linkSent) ...[
+                  const Text('A sign-in link has been sent to your email.'),
+                  const SizedBox(height: 24),
+                ],
+                if (_errorMessage != null) ...[
+                  Text(_errorMessage!, style: TextStyle(color: Colors.red)),
+                  const SizedBox(height: 16),
+                ],
                 TextFormField(
-                  key: const Key('email_field'), // Added key
+                  key: const Key('email_field'),
                   controller: _emailController,
+                  enabled: !_isLoading && !_linkSent,
                   decoration: InputDecoration(
                     labelText: 'University Email', // Simplified label
                     hintText: 'e.g., yourname@srmist.edu.in', // Added hint text
@@ -106,9 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  key: const Key('send_otp_button'), // Added key
-                  onPressed: _submit,
-                  child: const Text('Continue with Email'),
+                  key: const Key('send_link_button'),
+                  onPressed: (_isLoading || _linkSent) ? null : _submit,
+                  child: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text('Send Sign-In Link'),
                 ),
                 const SizedBox(height: 16),
                 Text(

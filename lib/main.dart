@@ -1,7 +1,14 @@
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart'; // for kIsWeb
 import 'package:frontend/firebase_options.dart';
+import 'package:frontend/screens/login_screen.dart';
 import 'package:frontend/screens/main_screen.dart';
+import 'package:frontend/services/auth_service.dart';
+import 'package:sojo_link/sojo_link.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -10,13 +17,65 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AuthService _authService = AuthService();
+  // Key for navigating programmatically
+  final GlobalKey<NavigatorState> _navKey = GlobalKey<NavigatorState>();
+  // Subscription to SojoLink dynamic link events
+  late final StreamSubscription _linkSub;
+  bool _loggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Handle web initial email-link on page load
+    if (kIsWeb) {
+      final link = Uri.base.toString();
+      _authService.signInWithLink(link).then((cred) {
+        if (cred?.user != null && mounted) {
+          setState(() => _loggedIn = true);
+          // Navigate to main screen
+          _navKey.currentState?.pushReplacement(
+            MaterialPageRoute(builder: (_) => const MainScreen())
+          );
+        }
+      });
+    }
+    // Subscribe to SojoLink dynamic links
+    _linkSub = SojoLink.instance.onLink.listen((pendingDynamicLink) async {
+      final Uri linkUri = pendingDynamicLink.link;
+      final cred = await _authService.signInWithLink(linkUri.toString());
+      if (cred?.user != null && mounted) {
+        setState(() => _loggedIn = true);
+        // Navigate to main screen
+        _navKey.currentState?.pushReplacement(
+          MaterialPageRoute(builder: (_) => const MainScreen())
+        );
+      }
+    });
+    // Track Firebase auth state changes
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (mounted) setState(() => _loggedIn = user != null);
+    });
+  }
+
+  @override
+  void dispose() {
+    _linkSub.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: _navKey,
       title: 'Klyro',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -125,10 +184,8 @@ class MyApp extends StatelessWidget {
           thickness: 0.8,
         ),
       ),
-      home: const MainScreen(),
-      // We will need to handle the navigation flow: LoginScreen -> MainScreen
-      // For now, to see the BottomNavigationBar, we set MainScreen as home.
-      // Later, LoginScreen will navigate to MainScreen upon successful login.
+      home: _loggedIn ? const MainScreen() : const LoginScreen(),
     );
   }
 }
+
